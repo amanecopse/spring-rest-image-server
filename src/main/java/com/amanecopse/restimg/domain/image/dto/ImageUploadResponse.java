@@ -7,7 +7,7 @@ import lombok.Data;
 public class ImageUploadResponse {
     private List<String> fileNames;
 
-    public ImageUploadResponse(List<String> fileNames){
+    public ImageUploadResponse(List<String> fileNames) {
         this.fileNames = fileNames;
     }
 }

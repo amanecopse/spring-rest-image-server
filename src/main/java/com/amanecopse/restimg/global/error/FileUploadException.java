@@ -1,6 +1,6 @@
 package com.amanecopse.restimg.global.error;
 
-public class FileUploadException extends RuntimeException{
+public class FileUploadException extends RuntimeException {
     public FileUploadException() {
         this("파일 업로드 실패");
     }

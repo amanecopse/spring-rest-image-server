@@ -3,7 +3,6 @@ package com.amanecopse.restimg.domain.image.application;
 import com.amanecopse.restimg.domain.image.dto.ImageUploadResponse;
 import com.amanecopse.restimg.global.error.FileUploadException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,12 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,8 +35,8 @@ public class ImageService {
 
     public ImageUploadResponse save(MultipartFile[] files) {
         List<String> fileNames = new ArrayList<>();
-        try{
-            for (MultipartFile file: files) {
+        try {
+            for (MultipartFile file : files) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HHmmss");
                 String fileName = "%s_%s".formatted(dateFormat.format(new Date()), file.getOriginalFilename());
                 fileNames.add(fileName);
