@@ -2,8 +2,8 @@ package com.amanecopse.restimg.domain.image.application;
 
 import com.amanecopse.restimg.domain.image.dto.ImageUploadResponse;
 import com.amanecopse.restimg.global.error.FileUploadException;
+import com.amanecopse.restimg.global.error.NotFoundException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -27,10 +27,16 @@ public class ImageService {
     @Value("${file-upload-path}")
     private String uploadPath;
 
-    public byte[] getByName(String imageName) throws IOException {
+    public byte[] getByName(String imageName) {
         String path = getFilePath(imageName).toString();
-        InputStream in = new FileSystemResource(path).getInputStream();
-        return IOUtils.toByteArray(in);
+        byte[] imageBytes;
+        try {
+            InputStream in = new FileSystemResource(path).getInputStream();
+            imageBytes = IOUtils.toByteArray(in);
+        } catch (IOException e) {
+            throw new NotFoundException();
+        }
+        return imageBytes;
     }
 
     public ImageUploadResponse save(MultipartFile[] files) {
@@ -50,11 +56,11 @@ public class ImageService {
         return new ImageUploadResponse(fileNames);
     }
 
-    public void delete(String fileName) throws IOException {
+    public void delete(String fileName) {
         Path filePath = getFilePath(fileName);
         File file = new File(filePath.toString());
         if (!file.exists()) {
-            throw new FileNotFoundException();
+            throw new NotFoundException();
         }
         if (!file.delete()) {
             throw new RuntimeException();

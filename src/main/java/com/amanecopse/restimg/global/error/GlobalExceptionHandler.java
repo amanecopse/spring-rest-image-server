@@ -2,8 +2,6 @@ package com.amanecopse.restimg.global.error;
 
 import com.amanecopse.restimg.global.common.response.ApiResponse;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -55,11 +53,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(ApiResponse.error(exception.getMessage()));
     }
 
-    @ExceptionHandler({FileNotFoundException.class})
-    ResponseEntity<ApiResponse<Void>> handleNotFoundException(IOException exception) {
+    @ExceptionHandler(NotFoundException.class)
+    ResponseEntity<ApiResponse<Void>> handleNotFoundException(RuntimeException exception) {
         logger.error("message", exception);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ApiResponse.error("리소스를 찾을 수 없습니다"));
+                .body(ApiResponse.error(exception.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)

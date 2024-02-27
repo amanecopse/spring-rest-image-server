@@ -3,7 +3,6 @@ package com.amanecopse.restimg.domain.image.api;
 import com.amanecopse.restimg.domain.image.application.ImageService;
 import com.amanecopse.restimg.domain.image.dto.ImageUploadResponse;
 import com.amanecopse.restimg.global.common.response.ApiResponse;
-import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageApi {
     private final ImageService imageService;
 
-    @GetMapping(value = "/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] getByName(@PathVariable("imageName") String imageName) throws IOException {
+    @GetMapping(value = "/{imageName}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public byte[] getByName(@PathVariable("imageName") String imageName) {
         return imageService.getByName(imageName);
     }
 
@@ -34,7 +33,7 @@ public class ImageApi {
     }
 
     @DeleteMapping("/{imageName}")
-    public ResponseEntity<Void> delete(@PathVariable("imageName") String imageName) throws IOException {
+    public ResponseEntity<Void> delete(@PathVariable("imageName") String imageName) {
         imageService.delete(imageName);
         return ResponseEntity.ok().build();
     }
