@@ -9,7 +9,7 @@
 - Gradle
 
 ## 2. 서버 실행
-### (1) src/main/resources/config 에 생성
+### (1-1) src/main/resources/config 에 생성
 ```properties
 # application.properties
 file-upload-path=/usr/local/tomcat/image
@@ -18,6 +18,15 @@ file-upload-path=/usr/local/tomcat/image
 # swagger.properties
 springdoc.swagger-ui.path=/index.html
 springdoc.api-docs.enabled=true
+```
+### (1-2) gradle/wrapper 에 생성
+``` properties
+# gradle-wrapper.properties
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.4-bin.zip
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
 ```
 ### (2) 이미지 빌드
 ```shell
