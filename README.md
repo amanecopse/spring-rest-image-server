@@ -23,8 +23,13 @@ springdoc.api-docs.enabled=true
 ```shell
  docker buildx build -t tomcat .
 ```
-### (3) 컨테이너 실행 (윈도우)
+### (3-1) 컨테이너 실행 (윈도우)
 C:\image 이외의 경로로 이미지를 저장하고 싶을 경우 원하는 경로로 변경할 것
 ```shell
  docker run --name tomcat -p 8190:8080 -v C:\image:/usr/local/tomcat/image tomcat
+```
+### (3-2) 컨테이너 실행 (맥)
+C:\image 이외의 경로로 이미지를 저장하고 싶을 경우 원하는 경로로 변경할 것
+```shell
+ docker run --name tomcat -p 8190:8080 -v /Users/image:/usr/local/tomcat/image tomcat
 ```
